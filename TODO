@@ -1,0 +1,13 @@
+* Allow creation of a custom language.
+* Some descriptions in `help` would be nice. Probably they'd require more work
+  when writing the language. Something like this:
+
+    arguents =[ :part_number, { :quantity => { :default => 1 } } ]
+    ... << Command.new "order_part", :arguments => arguments,
+                       :description => "Order some (default: 1) spare parts."
+
+    command "order_part" do
+      description "Order some (default: 1) spare parts."
+      argument :part_number
+      argument :quantity, :default => 1
+    end

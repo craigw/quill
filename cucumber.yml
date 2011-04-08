@@ -1,0 +1,4 @@
+<% common = "--strict features" %>
+default: --format pretty <%= common %>
+wip: --format pretty --tags @wip <%= common %>
+ok: --format pretty --tags ~@wip <%= common %>

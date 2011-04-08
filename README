@@ -1,0 +1,40 @@
+Quill
+=====
+
+Quill is a REPL skeleton. All you need to do is write the commands you'd like to
+support in the form of methods in a module.
+
+Running me
+----------
+
+Hopefully you have RVM and Bundler installed. I've not tested running
+without it, but it should work at least for ree-1.8.7-2010.02 if you have all
+the necessary gems installed (check the Gemfile, YMMV).
+
+    cd path/to/quill
+    bin/quill.sh
+
+That's it, you're running Quill. Type `help` for some instructions.
+
+
+Contributing
+------------
+
+  # Fork the project.
+  # Make your changes. Don't change the version and make sure it's all tested.
+  # Document your changes in the README and if necessary in the code.
+  # Push to a topic branch.
+  # Send a Pull request.
+
+
+Licence
+-------
+
+This work is released under the MIT licence, a copy of which is included in
+the file LICENCE.
+
+
+Authors
+-------
+
+Craig R Webster <http://barkingiguana.com/>
