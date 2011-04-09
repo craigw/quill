@@ -13,10 +13,18 @@ describe Quill::Command do
   end
 
   describe "executing the command" do
-    it "executes the command in the execution context" do
+    it "throws an exception when the execution context doesn't support the command" do
       context = stub_everything("Execution Context")
       command = Quill::Command.build "THINGY A B\n", context
-      context.expects(:THINGY).once.with("A", "B")
+      lambda {
+        command.execute
+      }.should raise_error Quill::Command::NoSuchCommand
+    end
+
+    it "executes the command in the execution context" do
+      context = stub_everything("Execution Context", :supports_command? => true)
+      command = Quill::Command.build "THINGY A B\n", context
+      context.expects(:run).once.with("THINGY", "A", "B")
       command.execute
     end
   end
