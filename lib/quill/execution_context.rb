@@ -3,10 +3,10 @@ module Quill
     attr_accessor :output, :languages
     private :output=, :output, :languages=, :languages
 
-    def initialize language, output
+    def initialize output
       self.output = output
       self.languages = []
-      self.support language
+      self.support Quill::Language
     end
 
     def support language

@@ -6,8 +6,8 @@ end
 
 describe Quill::Application do
   describe "being instanciated" do
-    it "takes a language for the execution context to support" do
-      app = Quill::Application.new :language => FakeDSL
+    it "takes languages for the execution context to support" do
+      app = Quill::Application.new :languages => [ FakeDSL ]
       app.execution_context.should have_support_for FakeDSL
     end
 

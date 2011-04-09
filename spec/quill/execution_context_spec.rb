@@ -2,15 +2,14 @@ require 'spec_helper'
 
 describe Quill::ExecutionContext do
   def execution_context options = {}
-    options[:language] ||= Quill::Language
     options[:output] ||= StringIO.new
-    Quill::ExecutionContext.new options[:language], options[:output]
+    Quill::ExecutionContext.new options[:output]
   end
 
   describe "being initialised" do
-    it "supports the language we provide" do
-      class TestLanguage; end
-      execution_context(:language => TestLanguage).should have_support_for TestLanguage
+    it "supports the Quill language out of the box" do
+      ctx = execution_context
+      ctx.should have_support_for Quill::Language
     end
   end
 

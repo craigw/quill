@@ -8,8 +8,10 @@ module Quill
     def initialize options = {}
       self.input = options[:input] || STDIN
       self.output = options[:output] || STDOUT
-      language = options[:language] || Quill::Language
-      self.execution_context = ExecutionContext.new language, output
+      self.execution_context = ExecutionContext.new output
+      (options[:languages] || []).each do |language|
+        execution_context.support language
+      end
     end
 
     def run
