@@ -30,7 +30,7 @@ module Quill
 
     def execute
       raise no_such_command name unless command_exists? name
-      execution_context.send name, *arguments
+      execution_context.run name, *arguments
     end
 
     def no_such_command name
@@ -39,7 +39,7 @@ module Quill
     private :no_such_command
 
     def command_exists? name
-      execution_context.respond_to? name
+      execution_context.supports_command? name
     end
   end
 end

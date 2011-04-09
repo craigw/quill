@@ -8,14 +8,33 @@ describe Quill::ExecutionContext do
   end
 
   describe "being initialised" do
-    it "behaves like an instance of the language" do
-      module TestLanguage; end
-      execution_context(:language => TestLanguage).should be_kind_of TestLanguage
+    it "supports the language we provide" do
+      class TestLanguage; end
+      execution_context(:language => TestLanguage).should have_support_for TestLanguage
     end
   end
 
   it "provides a way to execute commands inside the context" do
     execution_context.should respond_to :execute_command
+  end
+
+  describe "providing support for a language" do
+    it "redirects the output of the language to the execution context output" do
+      class LanguageWithPuts
+        def action
+          puts "foo"
+        end
+      end
+
+      output = StringIO.new
+      ctx = execution_context :output => output
+      ctx.support LanguageWithPuts
+      # FIXME: Yuck, don't use private API
+      i = ctx.send(:languages).detect { |i| i.kind_of? LanguageWithPuts }
+      i.action
+      output.rewind
+      output.read.should == "foo\n"
+    end
   end
 
   describe "executing a command" do

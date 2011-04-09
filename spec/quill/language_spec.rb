@@ -1,16 +1,19 @@
 require 'spec_helper'
 
-class FakeContext
+class LanguageWrapper < Quill::Language
   attr_accessor :output
   def initialize
     self.output = StringIO.new
   end
-  include Quill::Language
+
+  def puts *args
+    output.puts *args
+  end
 end
 
 describe Quill::Language do
   describe "when included in a containing class" do
-    let(:context) { FakeContext.new }
+    let(:context) { LanguageWrapper.new }
 
     it "supports a 'quit' command" do
       context.should respond_to :quit

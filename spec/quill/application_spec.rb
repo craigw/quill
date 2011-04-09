@@ -1,20 +1,19 @@
 require 'spec_helper'
 
-module FakeDSL
+class FakeDSL
   def method_missing *args; end
 end
 
 describe Quill::Application do
   describe "being instanciated" do
-    it "takes a language and creates an execution context for it" do
+    it "takes a language for the execution context to support" do
       app = Quill::Application.new :language => FakeDSL
-      app.execution_context.should be_kind_of FakeDSL
+      app.execution_context.should have_support_for FakeDSL
     end
 
     it "uses Quill::Language as the default language for the execution context" do
       app = Quill::Application.new
-      app.execution_context.should be_kind_of Quill::ExecutionContext
-      app.execution_context.should be_kind_of Quill::Language
+      app.execution_context.should have_support_for Quill::Language
     end
 
     it "takes an input to read commands from" do
