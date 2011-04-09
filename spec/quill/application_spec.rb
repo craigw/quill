@@ -62,7 +62,7 @@ describe Quill::Application do
 
     it "executes commands on the execution context based on the input" do
       input = StringIO.new "#{Quill::Application::QUIT_COMMAND}\n"
-      app = Quill::Application.new :input => input, :language => FakeDSL
+      app = Quill::Application.new :input => input, :output => StringIO.new, :language => FakeDSL
       command = stub_everything "Command"
       expectation = Quill::Command.expects :build
       call = expectation.with Quill::Application::QUIT_COMMAND, app.execution_context
