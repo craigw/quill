@@ -17,7 +17,10 @@ module Quill
       loop do
         output.print prompt
         line = input.gets.to_s.strip
-        next if blank? line
+        if blank? line
+          output.puts
+          next
+        end
         command = Command.build line, execution_context
         execution_context.execute_command command
         break if quit_command? line

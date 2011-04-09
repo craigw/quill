@@ -1,12 +1,11 @@
 module Quill
   class Command
     DELIMETER = " "
-    NoSuchCommand = Class.new StandardError
+    NoSuchCommand = Class.new Quill::Error
 
     def self.build input, execution_context
       name = name_from input
       arguments = arguments_from input
-      raise NoSuchCommand, "No such command: #{name}" unless execution_context.respond_to? name
       Command.new execution_context, name, *arguments
     end
 
@@ -30,7 +29,17 @@ module Quill
     end
 
     def execute
+      raise no_such_command name unless command_exists? name
       execution_context.send name, *arguments
+    end
+
+    def no_such_command name
+      NoSuchCommand.new "No such command: #{name.inspect}"
+    end
+    private :no_such_command
+
+    def command_exists? name
+      execution_context.respond_to? name
     end
   end
 end
