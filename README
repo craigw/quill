@@ -1,8 +1,8 @@
 Quill
 =====
 
-Quill is a REPL skeleton. All you need to do is write the commands you'd like to
-support in the form of methods in a module.
+Quill is a REPL skeleton. All you need to do is write the commands you'd like
+to support in the form of methods in a module.
 
 Running me
 ----------
@@ -15,6 +15,38 @@ the necessary gems installed (check the Gemfile, YMMV).
     bin/quill.sh
 
 That's it, you're running Quill. Type `help` for some instructions.
+
+
+Writing your own language
+-------------------------
+
+The whole point of Quill was to let you easily support the language you
+wanted. How do you do that? Simple, create a class that exposes the language
+then tell Quill to support it.
+
+A language is just a plain Ruby class, something like this:
+
+    class Sysadmin
+      def uptime
+        puts %x[uptime].strip
+      end
+
+      def whoami
+        puts %x[whoami].strip
+      end
+
+      def run command_line
+        puts %x[#{command_line}].strip
+      end
+    end
+
+To tell Quill to support your language just pass it at the command line:
+
+    ./bin/quill.sh --language Sysadmin
+
+Quill will search for your language in the LOAD_PATH in a file based on your
+language name. The sysadmin language shown above should be in the LOAD_PATH in
+a file called sysadmin.rb
 
 
 Contributing
