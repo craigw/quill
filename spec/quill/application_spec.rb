@@ -6,11 +6,6 @@ end
 
 describe Quill::Application do
   describe "being instanciated" do
-    it "takes languages for the execution context to support" do
-      app = Quill::Application.new :languages => [ FakeDSL ]
-      app.execution_context.should have_support_for FakeDSL
-    end
-
     it "uses Quill::Language as the default language for the execution context" do
       app = Quill::Application.new
       app.execution_context.should have_support_for Quill::Language
@@ -36,6 +31,15 @@ describe Quill::Application do
     it "uses STDOUT as the default output" do
       app = Quill::Application.new
       app.output.should be STDOUT
+    end
+  end
+
+  describe "loading a language" do
+    it "loads the language into the ExecutionContext" do
+      language = "Spec::Fixtures::Language"
+      app = Quill::Application.new
+      app.load language
+      app.execution_context.should have_support_for Spec::Fixtures::Language
     end
   end
 
