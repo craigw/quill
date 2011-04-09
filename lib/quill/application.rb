@@ -9,9 +9,14 @@ module Quill
       self.input = options[:input] || STDIN
       self.output = options[:output] || STDOUT
       self.execution_context = ExecutionContext.new output
-      (options[:languages] || []).each do |language|
-        execution_context.support language
-      end
+    end
+
+    def load language
+      const_names = language.split(/::/)
+      expected_file = const_names.map(&:downcase).join('/')
+      require expected_file
+      klass = const_names.inject(Object) { |a,e| a.const_get e }
+      execution_context.support klass
     end
 
     def run
