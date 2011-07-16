@@ -1,0 +1,8 @@
+Coding Standards
+================
+
+  * No trailing whitespace, even on blank lines
+      CHECK: /^\s+$/
+
+  * Files end with a newline character
+      CHECK: /\n\Z/
